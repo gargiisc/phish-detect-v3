@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PhishDetect - Stay Safe Online</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,18 +14,21 @@
             background: linear-gradient(120deg, #0d1117, #0a0f1c 60%, #10161e);
             color: #c9d1d9;
         }
+
         .glass-effect {
             background: rgba(18, 24, 38, 0.85);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(100, 200, 255, 0.1);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
         }
+
         .neon-text {
             background: linear-gradient(90deg, #00f0ff, #0ef3ff, #38bdf8);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .btn-neon {
             background: linear-gradient(90deg, #00f0ff, #38bdf8);
             color: #0a0f1c;
@@ -32,6 +36,7 @@
             box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
             transition: all 0.3s ease;
         }
+
         .btn-neon:hover {
             opacity: 0.8;
             transform: translateY(-1px);
@@ -68,32 +73,40 @@
     <main class="pt-28 pb-16 px-4 flex-grow">
         <div class="container mx-auto max-w-4xl text-center">
             <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                 <span class="neon-text">Detect Phishing Attacks</span>
+                <span class="neon-text">Detect Phishing Websites</span>
             </h1>
             <p class="text-xl text-gray-400 mb-12">Check if a website is safe before you visit it</p>
 
             <!-- URL Check Form -->
             <div class="glass-effect rounded-2xl p-8 shadow-2xl">
                 <form action="/result" method="POST" class="max-w-2xl mx-auto">
+                    
                     <div class="flex flex-col md:flex-row gap-4">
                         <input type="url" name="name" id="name" required
-                               placeholder="Enter website URL (e.g., https://example.com)"
-                               class="flex-1 px-6 py-4 rounded-xl bg-gray-900 text-cyan-300 border-2 border-gray-700 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400 transition-all duration-300">
-                        <button type="submit"
-                                class="btn-neon px-8 py-4 rounded-xl">
+                            placeholder="Enter website URL (e.g., https://example.com)"
+                            class="flex-1 px-6 py-4 rounded-xl bg-gray-900 text-cyan-300 border-2 border-gray-700 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400 transition-all duration-300">
+                        <button type="submit" class="btn-neon px-8 py-4 rounded-xl">
                             Scan URL
                         </button>
                     </div>
                 </form>
+                {% if error %}
+                    <div class="mt-4 p-4 bg-red-900 text-red-300 rounded-lg">
+                        <p>{{ error }}</p>
+                    </div>
+                {% endif %}
 
                 {% if name %}
-                <div class="mt-8 p-6 rounded-xl {% if name[3] %}bg-green-900 bg-opacity-30{% else %}bg-red-900 bg-opacity-30{% endif %} border {% if name[3] %}border-green-500{% else %}border-red-500{% endif %}">
+                <div
+                    class="mt-8 p-6 rounded-xl {% if name[3] %}bg-green-900 bg-opacity-30{% else %}bg-red-900 bg-opacity-30{% endif %} border {% if name[3] %}border-green-500{% else %}border-red-500{% endif %}">
                     <p class="text-lg {% if name[3] %}text-green-400{% else %}text-red-400{% endif %}">
                         <span class="font-semibold">Scanned URL:</span> {{ name[0] }}
                     </p>
-                    <p id="prediction" class="text-2xl font-bold mt-4 {% if name[3] %}text-green-300{% else %}text-red-300{% endif %}"></p>
+                    <p id="prediction"
+                        class="text-2xl font-bold mt-4 {% if name[3] %}text-green-300{% else %}text-red-300{% endif %}">
+                    </p>
                     <button id="button" onclick="window.open('{{name[0]}}')" target="_blank"
-                            class="mt-4 px-6 py-2 rounded-lg {% if name[3] %}bg-green-500 hover:bg-green-600{% else %}bg-red-500 hover:bg-red-600{% endif %} text-white transition-all duration-300">
+                        class="mt-4 px-6 py-2 rounded-lg {% if name[3] %}bg-green-500 hover:bg-green-600{% else %}bg-red-500 hover:bg-red-600{% endif %} text-white transition-all duration-300">
                         {{ name[2] }}
                     </button>
                 </div>
@@ -133,6 +146,23 @@
             <p>&copy; 2025 PhishDetect. All rights reserved.</p>
         </div>
     </footer>
-
+    <script>
+        let x = parseFloat('{{xx}}');
+        let num = x * 100;
+        if (0 <= x && x < 0.50) {
+            num = 100 - num;
+        }
+        let txtx = num.toFixed(2);
+        if (x <= 1 && x >= 0.50) {
+            var label = "Website is " + txtx + "% safe to use...";
+            document.getElementById("prediction").innerHTML = label;
+            document.getElementById("button1").style.display = "block";
+        } else if (0 <= x && x < 0.50) {
+            var label = "Website is " + txtx + "% unsafe to use...";
+            document.getElementById("prediction").innerHTML = label;
+            document.getElementById("button2").style.display = "block";
+        }
+    </script>
 </body>
+
 </html>

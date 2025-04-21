@@ -40,14 +40,14 @@ body {
 }
 
 .tab {
-    background: linear-gradient(135deg, #3ebfff, #1a8cff);
+    background: #8cd5fa;
     border: none;
     border-radius: 12px;
     padding: 12px;
     font-size: 14px;
     color: white;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
+    /* transition: transform 0.2s ease, background 0.3s ease; */
     text-align: center;
 }
 
@@ -57,7 +57,7 @@ body {
 }
 
 .tab.active {
-    background: linear-gradient(135deg, #1a8cff, #0066cc);
+    background: #0066cc;
     box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
 }
 

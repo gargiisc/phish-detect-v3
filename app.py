@@ -3,6 +3,8 @@ import numpy as np
 import sqlite3
 import pickle
 import warnings
+
+import requests
 from convert import convertion
 from feature import FeatureExtraction
 import pyrebase
@@ -104,6 +106,16 @@ def predict():
     if request.method == "POST":
         url = request.form["name"]
         print("URL:", url)  
+        try:
+            response = requests.get(url, timeout=5)
+            response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        except requests.exceptions.RequestException as e:
+            print(f"Error checking URL: {e}")
+            return render_template(
+                "index.html",
+                error="The website does not exist or is unreachable. Please check the URL and try again.",
+                user=session.get("user")
+            )
         obj = FeatureExtraction(url)
         x = np.array(obj.getFeaturesList()).reshape(1, 30)
         print("Extracted Features:", x) 

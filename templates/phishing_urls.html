@@ -2,38 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing URLs</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Flowbite Flask</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/output.css')}}">
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="container mx-auto p-8">
-        <h1 class="text-3xl font-bold mb-4">Detected Phishing Links</h1>
 
-        {% if user %}
-        <div class="mb-6">
-            <h2 class="text-xl">User Profile</h2>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Username:</strong> {{ user.displayName or "N/A" }}</p>
+  <!-- Navbar / Auth Buttons -->
+  <nav class="flex justify-end p-4 space-x-4">
+      <a href="{{ url_for('login') }}" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+          Login
+      </a>
+      <a href="{{ url_for('signup') }}" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+          Sign Up
+      </a>
+  </nav>
+
+  <section id="hero" class="flex items-center justify-center min-h-screen -mt-20">
+
+    <div class="container flex flex-col items-center justify-center" data-aos="fade-up">
+      <h1 class="text-5xl font-extrabold text-teal-400 mb-8">PHISHING DETECTION</h1>
+      <form action="/result" method="POST" role="form" class="w-full max-w-lg bg-gray-800 p-8 rounded-lg shadow-lg">
+        <div class="mb-4">
+          <input type="url" name="name" class="w-full p-4 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400" id="name" placeholder="Enter a URL link" required>
         </div>
-        {% endif %}
-
-        <table class="table-auto w-full bg-gray-800 rounded-lg shadow-lg">
-            <thead>
-                <tr>
-                    <th class="px-4 py-2">URL</th>
-                    <th class="px-4 py-2">Detected At</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for url, detected_at in urls %}
-                <tr>
-                    <td class="border px-4 py-2">{{ url }}</td>
-                    <td class="border px-4 py-2">{{ detected_at }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="text-center mt-4">
+          <button type="submit" class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-full transition duration-300">Scan URL</button>
+        </div>
+        <p class="mt-4">
+          {% if phishing_url %}
+          <h2 class="text-red-500 text-2xl">⚠️ Phishing URL Detected:</h2>
+          <p class="text-xl">{{ phishing_url }}</p>
+          {% endif %}
+          {% if name %}
+          <b><p class="text-xl">{{name[0]}}</p></b>
+          <h2 class="text-teal-400 text-2xl">Website is {{name[1]}} to use</h2><br>
+            {% if name[3] %}
+            <button class="button1 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full transition duration-300" onclick="window.open('{{name[0]}}')" target="_blank">{{name[2]}}</button><br>
+            {% else %}
+            <button class="button2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300" onclick="window.open('{{name[0]}}')" target="_blank">{{name[2]}}</button><br>
+            {% endif %}
+          {% endif %}
+      </p>
+      <p id="prediction" class="mt-4 text-lg"></p>
+      </form> 
+      
     </div>
+    <script>
+      let x = parseFloat('{{xx}}');
+      let num = x * 100;
+      if (0 <= x && x < 0.50) {
+          num = 100 - num;
+      }
+      let txtx = num.toFixed(2);
+      if (x <= 1 && x >= 0.50) {
+          var label = "Website is " + txtx + "% safe to use...";
+          document.getElementById("prediction").innerHTML = label;
+          document.getElementById("button1").style.display = "block";
+      } else if (0 <= x && x < 0.50) {
+          var label = "Website is " + txtx + "% unsafe to use...";
+          document.getElementById("prediction").innerHTML = label;
+          document.getElementById("button2").style.display = "block";
+      }
+    </script>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 </html>
