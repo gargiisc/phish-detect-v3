@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard Popup</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">PhishDetect</h1>
+        <p class="subtitle">Choose what to check:</p>
+
+        <div class="tabs">
+            <div class="tab" data-target="status-section">
+                🔍 Scan Current Tab
+            </div>
+            <div class="tab" data-target="hover-section">
+                🔗 Check Hovered Link
+            </div>
+        </div>
+
+        <div id="status-section" class="tab-content">
+            <div class="status-section">
+                
+                <h2 id="status-text">Analyzing site...</h2>
+                <p id="url-text"></p>
+            </div>
+        </div>
+
+        <div id="hover-section" class="tab-content">
+            
+            <h2 id="hovered-status-text">Hover over a link to check...</h2>
+            <p id="hovered-url-text"></p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

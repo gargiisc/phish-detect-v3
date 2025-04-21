@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "PhishDetect Extension",
+  "version": "1.0",
+  "description": "Detect phishing links and warn users.",
+  "permissions": [
+  "activeTab",
+  "tabs",
+  "http://*/",
+  "https://*/"
+],
+
+  "host_permissions": ["<all_urls>"],
+  "background": {
+      "service_worker": "background.js"
+  },
+  "action": {
+      "default_popup": "popup.html",
+      "default_icon": "icon.png"
+  },
+  "content_scripts": [
+      {
+          "matches": ["https://mail.google.com/*", "http://*/*", "https://*/*"],
+          "js": ["content.js"]
+      }
+  ],
+  "icons": {
+      "48": "icon.png"
+  }
+}
