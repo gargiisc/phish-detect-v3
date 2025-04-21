@@ -1,0 +1,11 @@
+[debug] [2025-04-20T20:14:17.288Z] ----------------------------------------------------------------------
+[debug] [2025-04-20T20:14:17.294Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions,hosting --debug
+[debug] [2025-04-20T20:14:17.295Z] CLI Version:   14.2.0
+[debug] [2025-04-20T20:14:17.296Z] Platform:      win32
+[debug] [2025-04-20T20:14:17.296Z] Node Version:  v20.9.0
+[debug] [2025-04-20T20:14:17.296Z] Time:          Mon Apr 21 2025 01:44:17 GMT+0530 (India Standard Time)
+[debug] [2025-04-20T20:14:17.296Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-20T20:14:17.688Z] Object "" in "firebase.json" has unknown property: {"additionalProperty":"apiKey"}
+[error] 
+[error] Error: Cannot understand what targets to deploy/serve. No targets in firebase.json match '--only functions,hosting'. If you are using PowerShell make sure you place quotes around any comma-separated lists (ex: --only "functions,firestore").

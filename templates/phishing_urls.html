@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing URLs</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-4">Detected Phishing Links</h1>
+
+        {% if user %}
+        <div class="mb-6">
+            <h2 class="text-xl">User Profile</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Username:</strong> {{ user.displayName or "N/A" }}</p>
+        </div>
+        {% endif %}
+
+        <table class="table-auto w-full bg-gray-800 rounded-lg shadow-lg">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">URL</th>
+                    <th class="px-4 py-2">Detected At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for url, detected_at in urls %}
+                <tr>
+                    <td class="border px-4 py-2">{{ url }}</td>
+                    <td class="border px-4 py-2">{{ detected_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
