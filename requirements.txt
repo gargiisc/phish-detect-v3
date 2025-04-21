@@ -1,6 +1,5 @@
 Flask==3.0.3
 numpy==1.26.4
-sqlite3==0.0.1
 pyrebase4==4.5.0
 python-dotenv==1.0.0
 beautifulsoup4==4.12.3
